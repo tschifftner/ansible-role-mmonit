@@ -1,13 +1,13 @@
 ---
 - name: start mmonit
-  notify: check monit
+  notify: 'Check M/Monit'
   service:
     name: 'monit'
     state: started
     enabled: yes
 
-- name: reload mmonit
-  notify: check monit
+- name: restart mmonit
+  notify: 'Check M/Monit'
   service:
     name: 'mmonit'
     state: restarted

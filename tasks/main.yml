@@ -47,7 +47,7 @@
     state: link
 
 - name: 'Configure M/Monit'
-  notify: reload mmonit
+  notify: restart mmonit
   template:
     src: conf/server.xml
     dest: '{{ mmonit_workspace }}/mmonit/conf/server.xml'
