@@ -1,0 +1,23 @@
+---
+- name: start mmonit
+  notify: check monit
+  service:
+    name: 'monit'
+    state: started
+    enabled: yes
+
+- name: reload mmonit
+  notify: check monit
+  service:
+    name: 'mmonit'
+    state: restarted
+    enabled: yes
+
+- name: reload systemd
+  command: systemctl daemon-reload
+
+- name: reload initctl
+  command: initctl reload-configuration
+
+- name: 'Check M/Monit'
+  shell: '[ $({{ mmonit_executable }} --version | grep -Po "(?<=mmonit\/)[^\s]+") == "{{ mmonit_version }}" ]'

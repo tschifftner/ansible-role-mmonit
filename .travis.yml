@@ -1,0 +1,53 @@
+---
+language: python
+python: "2.7"
+
+env:
+  - SITE=test.yml ANSIBLE_VERSION=1.8
+  - SITE=test.yml ANSIBLE_VERSION=1.9.4
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -y curl
+
+install:
+  # Install Ansible.
+  - pip install ansible==$ANSIBLE_VERSION
+
+  # Add ansible.cfg to pick up roles path.
+  - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
+
+  # Install ansible-lint
+  - pip install ansible-lint
+
+script:
+  # Check the role/playbook's syntax.
+  - "ansible-playbook -i tests/inventory tests/$SITE --syntax-check"
+
+  # Run the role/playbook with ansible-playbook.
+  - "ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo"
+
+  # Run the role/playbook again, checking to make sure it's idempotent.
+  - >
+    ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo
+    | grep -q 'changed=0.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
+
+  # ansible-lint checks for best practice
+  - ansible-lint tests/$SITE
+
+  # workaround for ubuntu (ansible starts properly with 2.0 only!)
+  - monit start
+
+  # Check if monit is reachable
+  - curl http://admin:monit@127.0.0.1:2812/
+
+after_failure:
+  - sudo service monit status
+  - sudo monit status
+  - sudo monit verify
+
+notifications:
+  slack:
+    secure: FWjBPtuL/c1spawTBzoOJohcjcy4iQClUEw/PYhpo1knhOMjigdSNAfipDJ2/EmkEdox6pE24Ow/pJFW6g8FA/O9vxWhD0jIjpSvPzPPsoNOKxYzWQr1kr947pAxaVpKUvQdQbA2xdmpBgl12tPkyR7B4x1paNuFZ9k79accmwp6stvpJgVPiaBE1xRmaYtoDF7EdtWKFswcup9jP2uE6m8ILwNAblmvlv9mJogaQEuiGuPRhZdGSjSYptuyCWBi7dytmE61jF3aoWR8pqnERQmBxSBpcXdzSwdsYsmgzeb87mXXKlvumtPYtDVdXHjZ5hXawQG3FA7nOJBuQ1rjiDCFKYAd+cHA8+W1v//67kP3wdNWy0s5iJ2GrZznntUY6pGuBeVwD4A4rIMMwOzU38C40bf4lDr2YGzbHw/njrybDzn/vd2GHex6zpoEInp8dEon0gKxg5CGIQa+vjQtfKNMbB3u1nLhulh51ntNivz1PiNiZMuQk8I81m5O3Rm6tgj7G7DOGPGreEcdvOe1flkpg0xgF21EzGbqMWvXV5wCsLkzWo2Uxpwf9Q5hWnTrLC20HvBiraw/iLDBS4VgycLG5f3N5KquKEhKwCtRS/cd+X+MOZRtolNOALP1cz12aaG0Bur6VGDLYHr/LbvpOSeU82MAMmWyeUDefY7iIhw=
