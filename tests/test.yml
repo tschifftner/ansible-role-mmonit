@@ -2,5 +2,8 @@
 - hosts: localhost
   remote_user: root
 
+  vars:
+    travis: true
+
   roles:
     - ansible-role-mmonit
