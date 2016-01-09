@@ -20,4 +20,4 @@
   command: initctl reload-configuration
 
 - name: 'Check M/Monit'
-  shell: '[ $({{ mmonit_executable }} --version | grep -Po "(?<=mmonit\/)[^\s]+") == "{{ mmonit_version }}" ]'
+  shell: version=$({{ mmonit_executable }} --version | grep -Po '(?<=mmonit\/)[^\s]+') && [ $version == '{{ mmonit_version }}' ]
