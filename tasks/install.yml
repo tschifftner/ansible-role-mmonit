@@ -1,5 +1,6 @@
 ---
-- set_fact:
+- name: 'Set some facts'
+  set_fact:
     mmonit_unarchive_dir: '{{ mmonit_workspace }}/mmonit-{{ mmonit_version }}'
     mmonit_current_version: ''
 
@@ -9,12 +10,16 @@
   changed_when: false
   ignore_errors: true
 
-- set_fact:
+- name: 'Set mmonit_current_version fact'
+  set_fact:
     mmonit_current_version: "{{ mmonit_current_version_output.stdout_lines | first }}"
   when: mmonit_current_version_output.stdout_lines[0] is defined
 
-- debug: msg="{{ mmonit_version }}"
-- debug: msg="{{ mmonit_current_version }}"
+- name: 'Output mmonit_version'
+  debug: msg="{{ mmonit_version }}"
+
+- name: 'Output mmonit_current_version'
+  debug: msg="{{ mmonit_current_version }}"
 
 - name: 'Ensure M/Monit workspace exists'
   file:

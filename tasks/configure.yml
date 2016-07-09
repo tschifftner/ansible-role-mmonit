@@ -1,5 +1,6 @@
 ---
-- assert:
+- name: 'Fail when mmonit_admin_password or mmonit_connector_password is empty'
+  assert:
     that:
       - "mmonit_admin_password != ''"
       - "mmonit_connector_password != ''"
@@ -18,7 +19,7 @@
 
 - name: 'Run script'
   when: _mmonit_setup.stat.exists is not defined or _mmonit_setup.stat.exists == false
-  shell: '/opt/ansibe-mmonit.sh'
+  command: '/opt/ansibe-mmonit.sh'
 
 - name: 'Cleanup'
   when: _mmonit_setup.stat.exists is not defined or _mmonit_setup.stat.exists == false
