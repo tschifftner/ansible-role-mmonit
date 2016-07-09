@@ -25,3 +25,18 @@ mmonit_connectors:
 #    processors: 10
 #    secure: true
 
+#mmonit_username: 'admin'
+#mmonit_password: 'swordfish'
+
+
+#mmonit_ansible_username: 'ansible'
+#mmonit_ansible_password: "{{ ansible_machine_id | hash('sha1') | hash('sha1') }}"
+
+mmonit_admin_username: 'admin'
+mmonit_admin_password: ''
+
+mmonit_connector_username: 'connector'
+mmonit_connector_password: ''
+
+
+#mmonit_ansible_password: "{{ ansible_machine_id | hash('sha1') }}"

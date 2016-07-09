@@ -1,0 +1,28 @@
+---
+- assert:
+    that:
+      - "mmonit_admin_password != ''"
+      - "mmonit_connector_password != ''"
+
+- name: 'Check if setup is required'
+  register: _mmonit_setup
+  stat:
+    path: '~/.mmonit/done'
+
+- name: 'Generate setup script'
+  when: _mmonit_setup.stat.exists is not defined or _mmonit_setup.stat.exists == false
+  template:
+    src: 'setup.sh'
+    dest: '/opt/ansibe-mmonit.sh'
+    mode: '0700'
+
+- name: 'Run script'
+  when: _mmonit_setup.stat.exists is not defined or _mmonit_setup.stat.exists == false
+  shell: '/opt/ansibe-mmonit.sh'
+
+- name: 'Cleanup'
+  when: _mmonit_setup.stat.exists is not defined or _mmonit_setup.stat.exists == false
+  file:
+    path: '/opt/ansibe-mmonit.sh'
+    state: absent
+
