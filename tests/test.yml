@@ -7,6 +7,8 @@
     mmonit_admin_username: 'travis'
     mmonit_admin_password: 'tr4visP4ssw0rd'
 
+    mmonit_connector_password: 'c0nnect0rP4ssw0rd'
+
 
   roles:
     - ansible-role-mmonit
