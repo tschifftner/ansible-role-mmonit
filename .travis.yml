@@ -57,9 +57,10 @@ after_failure:
   - ls -l /etc/.mmonit_installed
   - sudo ls -l /etc/.mmonit_installed
   - ls -l /opt
-  - ls -l /opt/ansibe-mmonit.sh
+  - ls -l /opt/ansible-mmonit.sh
   - ls -l /opt/mmonit/
   - ls -l /opt/mmonit/bin
+  - /opt/ansible-mmonit.sh
 
 notifications:
   slack: ambimax:2MlPTX9bY9aPxCPhJGxHKIT6

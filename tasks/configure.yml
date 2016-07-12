@@ -14,19 +14,19 @@
   when: _mmonit_setup.stat.exists is not defined or _mmonit_setup.stat.exists == false
   template:
     src: 'setup.sh'
-    dest: '/opt/ansibe-mmonit.sh'
+    dest: '/opt/ansible-mmonit.sh'
     mode: '0700'
     owner: 'root'
     group: 'root'
 
 - name: 'Run script'
   when: _mmonit_setup.stat.exists is not defined or _mmonit_setup.stat.exists == false
-  shell: '/opt/ansibe-mmonit.sh'
+  shell: '/opt/ansible-mmonit.sh'
   tags: ['skip_ansible_lint']
 
-- name: 'Cleanup'
-  when: _mmonit_setup.stat.exists is not defined or _mmonit_setup.stat.exists == false
-  file:
-    path: '/opt/ansibe-mmonit.sh'
-    state: absent
+#- name: 'Cleanup'
+#  when: _mmonit_setup.stat.exists is not defined or _mmonit_setup.stat.exists == false
+#  file:
+#    path: '/opt/ansible-mmonit.sh'
+#    state: absent
 
