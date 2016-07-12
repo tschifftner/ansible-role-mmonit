@@ -60,7 +60,10 @@ after_failure:
   - ls -l /opt/ansible-mmonit.sh
   - ls -l /opt/mmonit/
   - ls -l /opt/mmonit/bin
+  - cat /opt/ansible-mmonit.sh
+  - sudo cat /opt/ansible-mmonit.sh
   - /opt/ansible-mmonit.sh
+  - sudo /opt/ansible-mmonit.sh
 
 notifications:
   slack: ambimax:2MlPTX9bY9aPxCPhJGxHKIT6
