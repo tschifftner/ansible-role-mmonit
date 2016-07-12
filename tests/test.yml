@@ -4,8 +4,8 @@
 
   vars:
     travis: true
-#    mmonit_admin_username: 'travis'
-#    mmonit_admin_password: 'tr4visP4ssw0rd'
+    mmonit_admin_username: 'travis'
+    mmonit_admin_password: 'tr4visP4ssw0rd'
 
     mmonit_server_ip: '127.0.0.1'
 
