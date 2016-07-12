@@ -51,6 +51,8 @@ after_failure:
   - ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo
   - sudo service mmonit status
   - sudo mmonit status
+  - ls -l ~/.mmonit/done
+  - sudo ls -l ~/.mmonit/done
 
 notifications:
   slack: ambimax:2MlPTX9bY9aPxCPhJGxHKIT6
