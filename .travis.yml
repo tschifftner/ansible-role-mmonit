@@ -47,12 +47,19 @@ script:
   # Check if mmonit is reachable
   - curl http://127.0.0.1:2811/
 
+  - test -e /opt/mmonit/bin/mmonit
+  - test -e /opt/mmonit/logs/mmonit.pid
+
 after_failure:
   - ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo
   - sudo service mmonit status
   - sudo mmonit status
-  - ls -l ~/.mmonit/done
-  - sudo ls -l ~/.mmonit/done
+  - ls -l /etc/.mmonit_installed
+  - sudo ls -l /etc/.mmonit_installed
+  - ls -l /opt
+  - ls -l /opt/ansibe-mmonit.sh
+  - ls -l /opt/mmonit/
+  - ls -l /opt/mmonit/bin
 
 notifications:
   slack: ambimax:2MlPTX9bY9aPxCPhJGxHKIT6
