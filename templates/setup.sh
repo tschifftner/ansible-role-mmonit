@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ -f ~/.mmonit/done ]; then
+if [ -f /etc/.mmonit_installed ]; then
     # script has been run already
     exit 0
 fi
@@ -47,7 +47,7 @@ curl -b ~/.mmonit/cookie \
  ${host}/admin/users/delete > /dev/null
 
 # Set done if grep is successful
-curl -b ~/.mmonit/cookie ${host}/admin/users/list | grep '{{ mmonit_connector_username }}' && touch ~/.mmonit/done
+curl -b ~/.mmonit/cookie ${host}/admin/users/list | grep '{{ mmonit_connector_username }}' && touch /etc/.mmonit_installed
 
 # logout
 curl -b ~/.mmonit/cookie ${host}/login/logout.csp

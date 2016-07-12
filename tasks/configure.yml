@@ -8,7 +8,7 @@
 - name: 'Check if setup is required'
   register: _mmonit_setup
   stat:
-    path: '~/.mmonit/done'
+    path: '/etc/.mmonit_installed'
 
 - name: 'Generate setup script'
   when: _mmonit_setup.stat.exists is not defined or _mmonit_setup.stat.exists == false
