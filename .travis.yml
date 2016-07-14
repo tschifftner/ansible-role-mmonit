@@ -45,6 +45,8 @@ script:
   - ansible-lint tests/$SITE
 
   - sudo service mmonit status | grep running
+  - echo exit | telnet localhost 2811 | grep 'Connected to localhost'
+
   # Check if mmonit is reachable
   - curl http://127.0.0.1:2811/
 
@@ -54,6 +56,7 @@ script:
 after_failure:
   - ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo
   - sudo service mmonit status
+  - sudo service mmonit start
   - ls -l /etc/.mmonit_installed
   - ls -l /opt
   - ls -l /opt/ansible-mmonit.sh
