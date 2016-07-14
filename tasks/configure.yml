@@ -20,6 +20,7 @@
     group: 'root'
 
 - name: 'Run script'
+  become: true
   when: _mmonit_setup.stat.exists is not defined or _mmonit_setup.stat.exists == false
   shell: '/opt/ansible-mmonit.sh'
   tags: ['skip_ansible_lint']
