@@ -65,7 +65,7 @@ Please change the credentials within your project!
 
 ## License
 
-MIT / BSD
+[MIT License](http://choosealicense.com/licenses/mit/)
 
 ## Author Information
 

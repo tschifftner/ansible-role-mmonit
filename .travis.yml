@@ -32,11 +32,11 @@ script:
   - "ansible-playbook -i tests/inventory tests/$SITE --syntax-check"
 
   # Run the role/playbook with ansible-playbook.
-  - "ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo"
+  - "ansible-playbook -i tests/inventory tests/$SITE --connection=local --become"
 
   # Run the role/playbook again, checking to make sure it's idempotent.
   - >
-    ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo
+    ansible-playbook -i tests/inventory tests/$SITE --connection=local --become
     | grep -q 'changed=0.*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
@@ -54,9 +54,10 @@ script:
   - test -e /opt/mmonit/logs/mmonit.pid
 
 after_failure:
-  - ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo
+  - ansible-playbook -i tests/inventory tests/$SITE --connection=local --become
   - sudo service mmonit status
   - sudo service mmonit start
+  - sudo service mmonit status
   - ls -l /etc/.mmonit_installed
   - ls -l /opt
   - ls -l /opt/ansible-mmonit.sh
@@ -64,6 +65,7 @@ after_failure:
   - ls -l /opt/mmonit/bin
   - sudo cat /opt/ansible-mmonit.sh
   - sudo /opt/ansible-mmonit.sh
+  - sudo cat /opt/mmonit/conf/server.xml
 
 notifications:
   slack: ambimax:2MlPTX9bY9aPxCPhJGxHKIT6
