@@ -12,6 +12,11 @@ mmonit_license: |
   4FWIQ
 
 
+mmonit_server_ip: ''
+mmonit_server_hostname: 'localhost'
+mmonit_ssl_certificate: ''
+mmonit_ssl_certificate_key: ''
+
 mmonit_connectors:
   - name: 'Default'
     address: '*'

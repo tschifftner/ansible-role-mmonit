@@ -2,8 +2,8 @@
 - name: 'Fail when mmonit_admin_password or mmonit_connector_password is empty'
   assert:
     that:
-      - "mmonit_admin_password != ''"
-      - "mmonit_connector_password != ''"
+      - mmonit_admin_password != ''
+      - mmonit_connector_password != ''
 
 - name: 'Check if setup is required'
   register: _mmonit_setup

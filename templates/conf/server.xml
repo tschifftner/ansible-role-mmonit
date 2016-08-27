@@ -85,7 +85,7 @@
         -->
         {% if mmonit_connectors is defined %}
         {% for connector in mmonit_connectors -%}
-        <Connector address="{{ connector.address }}" port="{{ connector.port }}" processors="{{ connector.processors }}" />
+        <Connector address="{{ connector.address }}" port="{{ connector.port }}" processors="{{ connector.processors }}" {% if connector.secure is defined and connector.secure %}secure="true"{% endif %} />
         {% endfor -%}
         {% endif %}
 
@@ -135,7 +135,7 @@
              * ErrorLogger - Configure an error logger that is used by
                the Server to dump error and warning messages.
         -->
-        <Engine name="mmonit" defaultHost="localhost" fileCache="10MB">
+        <Engine name="mmonit" defaultHost="{{ mmonit_server_hostname }}" fileCache="10MB">
 
             <!--
                 The Realm element specify the database to be used by M/Monit
@@ -280,7 +280,9 @@
                 Define the default virtual host which name must match the
                 Engine defaultHost attribute
             -->
-            <Host name="localhost" appBase=".">
+            <!-- Host name="localhost" appBase="." -->
+            <Host name="{{ mmonit_server_hostname }}" appBase="." {%if mmonit_server_ip != '' %}address="{{ mmonit_server_ip }}"{% endif %}{%if mmonit_ssl_certificate != '' %} certificate="{{ mmonit_workspace }}/.ssl/certificate.pem"{% endif %}>
+
 
                 <!--
                     Access logger that logs all requests for this virtual host.

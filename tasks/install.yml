@@ -1,7 +1,6 @@
 ---
 - name: 'Set some facts'
   set_fact:
-    mmonit_unarchive_dir: '{{ mmonit_workspace }}/mmonit-{{ mmonit_version }}'
     mmonit_current_version: ''
 
 - name: 'Get current M/Monit version'
