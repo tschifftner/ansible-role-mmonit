@@ -62,7 +62,7 @@
 
 - name: 'Run upgrade script'
   shell:  /opt/mmonit-{{ mmonit_version }}/upgrade/upgrade -p /opt/mmonit-{{ mmonit_current_version }}
-  when: mmonit_version != mmonit_current_version
+  when: mmonit_current_version != '' and mmonit_version != mmonit_current_version
   tags: ['skip_ansible_lint']
 
 #- name: 'Set M/Monit initd script'
