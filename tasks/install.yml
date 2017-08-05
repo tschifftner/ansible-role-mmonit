@@ -4,7 +4,7 @@
     mmonit_current_version: ''
 
 - name: 'Get current M/Monit version'
-  shell: '{{ mmonit_executable }} --version | grep -Po "(?<=mmonit\/)[^\s]+"'
+  shell: "{{ mmonit_executable }} --version | cut -d ' ' -f2"
   register: mmonit_current_version_output
   changed_when: false
   ignore_errors: true
@@ -62,7 +62,7 @@
 
 - name: 'Run upgrade script'
   shell:  /opt/mmonit-{{ mmonit_version }}/upgrade/upgrade -p /opt/mmonit-{{ mmonit_current_version }}
-  when: mmonit_current_version != '' and mmonit_version != mmonit_current_version
+  when: mmonit_current_version | version_compare(mmonit_version, '<')
   tags: ['skip_ansible_lint']
 
 #- name: 'Set M/Monit initd script'
