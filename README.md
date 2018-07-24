@@ -35,6 +35,10 @@ Available variables are listed below, along with default values (see `defaults/m
     mmonit_connector_username: 'connector'
     mmonit_connector_password: ''
 
+## License for testing
+
+When `mmonit_license` is empty the downloaded trial license is used
+
 ## Secure Monit connector
 
     mmonit_connectors:

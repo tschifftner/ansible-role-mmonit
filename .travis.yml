@@ -42,8 +42,11 @@ script:
   - ${DOCKER} test -e /opt/mmonit/bin/mmonit
   - ${DOCKER} test -e /opt/mmonit/logs/mmonit.pid
 
+  - ${DOCKER} /opt/mmonit/bin/monit -i
+
 
 after_failure:
+  - ${DOCKER} /opt/mmonit/bin/monit -i
   - ${DOCKER} systemctl --no-pager status mmonit
   - ${DOCKER} curl http://127.0.0.1:2811/
   - ${DOCKER} test -e /opt/mmonit/bin/mmonit
