@@ -1,6 +1,6 @@
 # Ansible Role: M/Monit
 
-[![Build Status](https://travis-ci.org/tschifftner/ansible-role-mmonit.svg)](https://travis-ci.org/tschifftner/ansible-role-mmonit)
+[![Build Status](https://travis-ci.org/tschifftner/ansible-role-mmonit.svg?branch=master)](https://travis-ci.org/tschifftner/ansible-role-mmonit)
 
 Installs M/Monit on Debian/Ubuntu linux servers.
 
@@ -35,6 +35,10 @@ Available variables are listed below, along with default values (see `defaults/m
     mmonit_connector_username: 'connector'
     mmonit_connector_password: ''
 
+## License for testing
+
+When `mmonit_license` is empty the downloaded trial license is used
+
 ## Secure Monit connector
 
     mmonit_connectors:
@@ -62,6 +66,17 @@ None.
 | http://www.example.org:2811 | admin | swordfish |
 
 Please change the credentials within your project!
+
+## Supported OS
+
+ - Debian 9 (Stretch)
+ - Debian 8 (Jessie)
+ - Ubuntu 18.04 (Bionic Beaver)
+ - Ubuntu 16.04 (Xenial Xerus)
+ 
+## Required ansible version
+
+Ansible 2.5+
 
 ## License
 

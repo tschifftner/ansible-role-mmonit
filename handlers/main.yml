@@ -12,8 +12,5 @@
     enabled: yes
 
 - name: reload systemd
-  command: systemctl daemon-reload
-  tags: ['skip_ansible_lint']
-
-- name: reload initctl
-  command: initctl reload-configuration
+  systemd:
+    daemon_reload: yes

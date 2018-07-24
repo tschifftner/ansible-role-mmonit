@@ -21,6 +21,7 @@
         username: 'connector'
         password: 'c0nnect0rP4ssw0rd'
     mmonit_collector: "{{ mmonit_connectors.0.scheme | default('http') }}://{{ mmonit_connectors.0.username }}:{{ mmonit_connectors.0.password }}@{{ mmonit_server_ip }}:{{ mmonit_connectors.0.port }}/collector"
+    mmonit_dhparam_size: 32
 
   roles:
-    - ansible-role-mmonit
+    - role_under_test
