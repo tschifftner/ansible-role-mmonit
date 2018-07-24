@@ -33,24 +33,22 @@ script:
   # Check webinterface
   - ${DOCKER} curl http://127.0.0.1:2811/
 
-  # Test api (pipes not working in
-  - >
-    ${DOCKER} echo "echo exit | telnet localhost 2811 | grep 'Connected to localhost'" > /tmp/apitest.sh
-    && chmod +x /tmp/apitest.sh
-    && /tmp/apitest.sh
+  # Test api
+  - ${DOCKER} /etc/ansible/roles/role_under_test/tests/apitest.sh
 
   - ${DOCKER} test -e /opt/mmonit/bin/mmonit
   - ${DOCKER} test -e /opt/mmonit/logs/mmonit.pid
 
-  - ${DOCKER} /opt/mmonit/bin/monit -i
+  - ${DOCKER} /opt/mmonit/bin/mmonit -i | grep 'mmonit is already running'
 
 
 after_failure:
-  - ${DOCKER} /opt/mmonit/bin/monit -i
+  - ${DOCKER} /opt/mmonit/bin/mmonit -i
   - ${DOCKER} systemctl --no-pager status mmonit
   - ${DOCKER} curl http://127.0.0.1:2811/
   - ${DOCKER} test -e /opt/mmonit/bin/mmonit
   - ${DOCKER} test -e /opt/mmonit/logs/mmonit.pid
+  - ${DOCKER} /etc/ansible/roles/role_under_test/tests/apitest.sh
 
 notifications:
   slack: ambimax:2MlPTX9bY9aPxCPhJGxHKIT6

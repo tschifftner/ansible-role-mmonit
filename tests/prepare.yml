@@ -3,7 +3,10 @@
   remote_user: root
 
   pre_tasks:
-    - name: Install curl
+    - name: Install apt packages for testing
       apt:
-        pkg: curl
+        pkg: '{{ item }}'
         update_cache: yes
+      with_items:
+        - curl
+        - telnet
