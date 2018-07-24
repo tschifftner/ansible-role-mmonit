@@ -72,25 +72,6 @@
     and mmonit_version | version_compare(mmonit_current_version, 'gt'))
   tags: ['skip_ansible_lint']
 
-#- name: 'Set M/Monit initd script'
-#  template:
-#    src: mmonit.initd
-#    dest: /etc/init.d/monit
-#    owner: root
-#    group: root
-#    mode: 0755
-#  when: ansible_distribution == 'Ubuntu'
-
-- name: 'Set M/Monit upstart script'
-  template:
-    src: mmonit.upstart
-    dest: /etc/init/mmonit.conf
-    owner: root
-    group: root
-    mode: '0644'
-  notify: reload initctl
-  when: ansible_distribution == 'Ubuntu'
-
 - name: 'Set M/Monit systemd unit file'
   template:
     src: mmonit.service
@@ -99,7 +80,6 @@
     group: root
     mode: '0751'
   notify: ['reload systemd', 'restart mmonit']
-  when: ansible_distribution == 'Debian'
 
 - name: 'start M/Monit'
   service:
