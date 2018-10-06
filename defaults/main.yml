@@ -38,7 +38,7 @@ mmonit_admin_password: ''
 mmonit_connector_username: 'connector'
 mmonit_connector_password: ''
 
-mmonit_setup_url: ':{{ mmonit_connectors.0.scheme }}://{{ mmonit_server_hostname }}:{{ mmonit_connectors.0.port }}'
+mmonit_setup_url: '{{ mmonit_connectors.0.scheme }}://{{ mmonit_server_hostname }}:{{ mmonit_connectors.0.port }}'
 
 #mmonit_ansible_password: "{{ ansible_machine_id | hash('sha1') }}"
 
