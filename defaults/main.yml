@@ -14,6 +14,7 @@ mmonit_ssl_certificate_key: ''
 
 mmonit_connectors:
   - name: 'Default'
+    scheme: http
     address: '*'
     port: 2811
     processors: 10
