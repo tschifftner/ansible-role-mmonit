@@ -53,6 +53,7 @@
     group: root
     mode: 0700
     state: link
+  changed_when: false # required for idempotence
 
 - name: 'Configure M/Monit'
   notify: restart mmonit
@@ -69,7 +70,7 @@
     and mmonit_version is defined
     and mmonit_version != ""
     and mmonit_current_version != ""
-    and mmonit_version | version_compare(mmonit_current_version, 'gt'))
+    and mmonit_version is version_compare(mmonit_current_version, 'gt'))
   tags: ['skip_ansible_lint']
 
 - name: 'Set M/Monit systemd unit file'

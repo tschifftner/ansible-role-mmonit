@@ -5,8 +5,9 @@
   pre_tasks:
     - name: Install apt packages for testing
       apt:
-        pkg: '{{ item }}'
+        pkg: '{{ packages }}'
         update_cache: yes
-      with_items:
-        - curl
-        - telnet
+      vars:
+        packages:
+          - curl
+          - telnet
